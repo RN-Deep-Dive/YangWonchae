@@ -7,8 +7,8 @@ const Container = styled.View`
   flex-direction: row;
 `
 const ProfileImage = styled.Image`
-  width: ${props => (props.size)};
-  height: ${props => (props.size)};
+  width: ${props => (props.size)}px;
+  height: ${props => (props.size)}px;
   borderRadius: ${props => (props.size * 0.4)}px;
 `
 const TextContainer = styled.View`
