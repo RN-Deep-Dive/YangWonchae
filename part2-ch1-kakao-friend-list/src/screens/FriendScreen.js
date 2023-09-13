@@ -13,7 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const statusBarHeight = getStatusBarHeight(true)
 const bottomSpace = getBottomSpace()
 
-export default function FriendScreen () {
+export default function FriendScreen() {
   const [isOpened, setIsOpened] = useState(true)
 
   const onPressArrow = () => {

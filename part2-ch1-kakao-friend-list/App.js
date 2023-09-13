@@ -1,52 +1,96 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import FriendScreen from './src/screens/FriendScreen';
-import ChatScreen from './src/screens/ChatScreen';
+import { FlatList, Platform, StyleSheet, Text, View } from 'react-native';
+import Header from './src/Header';
+import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Fontisto, Ionicons } from '@expo/vector-icons';
-import BookmarkScreen from './src/screens/BookmarkScreen';
-import ETCScreen from './src/screens/ETCScreen';
+import { myProfile, friendProfiles } from './src/data';
+import Margin from './src/Margin';
+import Division from './src/Division';
+import FriendSection from './src/FriendSection';
+import FriendList from './src/FriendList';
+import { useState } from 'react';
+import TabBar from './src/TabBar';
+import Profile from './src/Profile';
 
+const statusBarHeight = getStatusBarHeight(true)
+const bottomSpace = getBottomSpace()
 
 // console.log(Platform.OS, 'statusBarHeight', statusBarHeight)
 // console.log(Platform.OS, 'bottomSpace', bottomSpace)
 
-const Tab = createBottomTabNavigator();
-
 export default function App() {
-  const navOptions = ({ route }) => ({
-    tabBarIcon: ({ focused, color, size }) => {
-      let iconName;
-      
-      if (route.name === 'Friends') {
-        iconName = focused ? 'persons' : 'person'
-        return <Fontisto name={iconName} size={size} color={color} />
-      } else if (route.name === 'Chat') {
-        iconName = focused ? 'chatbubble' : 'chatbubble-outline'
-      } else if (route.name === 'Bookmark') {
-        iconName = focused ? 'ios-pricetag' : 'ios-pricetag-outline'
-      } else if (route.name === 'ETC') {
-        iconName = focused ? 'add-circle' : 'add-circle-outline'
-      }
-      
-      // You can return any component that you like here!
-      return <Ionicons name={iconName} size={size} color={color} />
-    }
-  })
+  const [isOpened, setIsOpened] = useState(true)
+  const [selectedTabIdx, setSelectedTabIdx] = useState(0)
+
+  const onPressArrow = () => {
+    setIsOpened(!isOpened)
+  }
+
+  const ItemSeparatorComponent = () => <Margin height={13} />
+  const renderItem = ({ item }) => (
+    <View>
+      <Profile
+        uri={item.uri}
+        name={item.name}
+        introduction={item.introduction}
+        isMe={false}
+      />
+    </View>
+  )
+
+  const ListHeaderComponent = () => (
+    <View style={{backgroundColor: 'white'}}>
+      <Header />
+      <Margin height={10} />
+      <Profile
+        uri={myProfile.uri}
+        name={myProfile.name}
+        introduction={myProfile.introduction}
+        isMe={true}
+      />
+      <Margin height={15} />
+      <Division />
+      <Margin height={12} />
+      <FriendSection
+        friendProfileLen={friendProfiles.length}
+        onPressArrow={onPressArrow}
+        isOpened={isOpened}
+      />
+      <Margin height={5} />
+    </View>
+  )
+
+  const ListFooterComponent = () => <Margin height={10} />
 
   return (
-    <NavigationContainer>
-      <SafeAreaProvider>
-        <StatusBar style="auto" />
-        <Tab.Navigator screenOptions={navOptions}>
-          <Tab.Screen name="Friends" component={FriendScreen} options={{ headerShown: false }} />
-          <Tab.Screen name="Chat" component={ChatScreen} options={{ headerShown: false }} />
-          <Tab.Screen name="Bookmark" component={BookmarkScreen} options={{ headerShown: false }} />
-          <Tab.Screen name="ETC" component={ETCScreen} options={{ headerShown: false }} />
-        </Tab.Navigator>
-      </SafeAreaProvider>
-    </NavigationContainer>
-  );
+    <SafeAreaProvider>
+      <StatusBar style="auto" />
+      <SafeAreaView style={styles.container} edges={['right', 'left']}>
+        <FlatList
+          data={isOpened ? friendProfiles : []}
+          contentContainerStyle={{paddingHorizontal: 10}}
+          keyExtractor={({ item, index }) => index}
+          stickyHeaderIndices={[0]}
+          ItemSeparatorComponent={ItemSeparatorComponent}
+          renderItem={renderItem}
+          ListHeaderComponent={ListHeaderComponent}
+          ListFooterComponent={ListFooterComponent}
+          showsVerticalScrollIndicator={false}
+        />
+        <TabBar
+          selectedTabIdx={selectedTabIdx}
+          setSelectedTabIdx={setSelectedTabIdx}
+        />
+      </SafeAreaView>
+    </SafeAreaProvider>
+  )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: statusBarHeight,
+    backgroundColor: '#fff',
+    paddingHorizontal: 15,
+  },
+});
