@@ -1,68 +1,52 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import Header from './src/Header';
-import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import MyProfile from './src/Profile';
-import { myProfile, friendProfiles } from './src/data';
-import Margin from './src/Margin';
-import Division from './src/Division';
-import FriendSection from './src/FriendSection';
-import FriendList from './src/FriendList';
 import { useState } from 'react';
-import TabBar from './src/TabBar';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import FriendScreen from './src/screens/FriendScreen';
+import ChatScreen from './src/screens/ChatScreen';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { Fontisto, Ionicons } from '@expo/vector-icons';
+import BookmarkScreen from './src/screens/BookmarkScreen';
+import ETCScreen from './src/screens/ETCScreen';
 
-const statusBarHeight = getStatusBarHeight(true)
-const bottomSpace = getBottomSpace()
 
 // console.log(Platform.OS, 'statusBarHeight', statusBarHeight)
 // console.log(Platform.OS, 'bottomSpace', bottomSpace)
 
-export default function App() {
-  const [isOpened, setIsOpened] = useState(true)
-  const [selectedTabIdx, setSelectedTabIdx] = useState(0)
+const Tab = createBottomTabNavigator();
 
-  const onPressArrow = () => {
-    setIsOpened(!isOpened)
-  }
+export default function App() {
+  const navOptions = ({ route }) => ({
+    tabBarIcon: ({ focused, color, size }) => {
+      let iconName;
+      
+      if (route.name === 'Friends') {
+        iconName = focused ? 'persons' : 'person'
+        return <Fontisto name={iconName} size={size} color={color} />
+      } else if (route.name === 'Chat') {
+        iconName = focused ? 'chatbubble' : 'chatbubble-outline'
+      } else if (route.name === 'Bookmark') {
+        iconName = focused ? 'ios-pricetag' : 'ios-pricetag-outline'
+      } else if (route.name === 'ETC') {
+        iconName = focused ? 'add-circle' : 'add-circle-outline'
+      }
+      
+      // You can return any component that you like here!
+      return <Ionicons name={iconName} size={size} color={color} />
+    }
+  })
 
   return (
-    <SafeAreaProvider>
-      <StatusBar style="auto" />
-      <SafeAreaView style={styles.container} edges={['right', 'left']}>
-        <Header />
-        <Margin height={10} />
-        <MyProfile
-          uri={myProfile.uri}
-          name={myProfile.name}
-          introduction={myProfile.introduction}
-        />
-        <Margin height={15} />
-        <Division />
-        <Margin height={12} />
-        <FriendSection
-          friendProfileLen={friendProfiles.length}
-          onPressArrow={onPressArrow}
-          isOpened={isOpened}
-        />
-        <FriendList
-          data={friendProfiles}
-          isOpened={isOpened}
-        />
-      </SafeAreaView>
-      <TabBar
-        selectedTabIdx={selectedTabIdx}
-        setSelectedTabIdx={setSelectedTabIdx}
-      />
-    </SafeAreaProvider>
+    <NavigationContainer>
+      <SafeAreaProvider>
+        <StatusBar style="auto" />
+        <Tab.Navigator screenOptions={navOptions}>
+          <Tab.Screen name="Friends" component={FriendScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="Chat" component={ChatScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="Bookmark" component={BookmarkScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="ETC" component={ETCScreen} options={{ headerShown: false }} />
+        </Tab.Navigator>
+      </SafeAreaProvider>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: statusBarHeight,
-    backgroundColor: '#fff',
-    paddingHorizontal: 15,
-  },
-});

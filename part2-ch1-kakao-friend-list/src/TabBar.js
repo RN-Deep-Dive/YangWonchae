@@ -13,33 +13,33 @@ const TabButton = ({ isSelected, onPress, activeIconName, inactiveIconName, isIc
         </TouchableOpacity>
     )
 }
-export default ({ selectedTabIdx, setSelectedTabIdx }) => {
+export default ({ selectedTabIdx, onPressFooterIcon }) => {
     return (
         <View style={{ width: '100%', borderTopWidth: 0.5, borderTopColor: 'grey', flexDirection: 'row', paddingBottom: bottomSpace }}>
             <TabButton
                 isSelected={selectedTabIdx === 0}
-                onPress={() => setSelectedTabIdx(0)}
+                onPress={() => onPressFooterIcon(0)}
                 activeIconName={"persons"}
                 inactiveIconName={"person"}
                 isIconFontisto
             />
             <TabButton
                 isSelected={selectedTabIdx === 1}
-                onPress={() => setSelectedTabIdx(1)}
+                onPress={() => onPressFooterIcon(1)}
                 activeIconName={"chatbubble"}
                 inactiveIconName={"chatbubble-outline"}
                 isIconIonicons
             />
             <TabButton
                 isSelected={selectedTabIdx === 2}
-                onPress={() => setSelectedTabIdx(2)}
+                onPress={() => onPressFooterIcon(2)}
                 activeIconName={"ios-pricetag"}
                 inactiveIconName={"ios-pricetag-outline"}
                 isIconIonicons
             />
             <TabButton
                 isSelected={selectedTabIdx === 3}
-                onPress={() => setSelectedTabIdx(3)}
+                onPress={() => onPressFooterIcon(3)}
                 activeIconName={"add-circle"}
                 inactiveIconName={"add-circle-outline"}
                 isIconIonicons
