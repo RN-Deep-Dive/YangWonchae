@@ -28,7 +28,7 @@ export default function App() {
 
   const renderItem = ({ item }) => (
     <View>
-      {item.introduction &&
+      {!item.desc &&
       <Profile
         uri={item.uri}
         name={item.name}

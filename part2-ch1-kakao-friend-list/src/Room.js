@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     },
     roomTime: {
         fontSize: 10,
-        textAlign: 'bottom'
     },
 
     roomProfile: {
