@@ -61,3 +61,54 @@ export const friendProfiles = [
         introduction: "I am London"
     },
 ]
+
+export const rooms = [
+    {
+        uri: "https://i.namu.wiki/i/bjQ7Jg1fPKx1buZuFqPNhA4dRwdBjPJi7b5zMd-0Jn4zX0ejpNJqJhUbPrtKbSCldZ_LJu6NdyaHhPLlreX5THoWz4Q01XSOQJrkd7z2MI0NHXsgyy8o6Hi3YuwmMFCMK5R_rnFpZTs8ag1HzNk9Uw.webp",
+        name: "티아고실바",
+        desc: "티아고도 나이 많지 이제..",
+        time: "19:20"
+    },
+    {
+        uri: "https://i.namu.wiki/i/0r16p9LSlmfuJ_yZ2z4fKqF9pE-QSnPdQ8GFEI7iK7q2FxymcqwqOThAIG2zx2089q9wvjMO0zyOwXCk_j5B1jxvOMzPsjMWT_dw4mSQA3VpiUJ4gd7PJD3IvHjwEPH3ihHZfAVr0Lw8q_zNgrDagA.webp",
+        name: "엘링홀란드",
+        desc: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+        time: "18:12"
+    },
+    {
+        uri: "https://i.namu.wiki/i/cNYvLzdXwpUyE8yID1kCaUwNSaNleaT8k4zq1xEI7RfS8nq5Jqh-mP4DZgEytn2u_UCQQ7tf9-fwXvX0bgDInBH9e3FBohyQwwb-7emRmHhdpIItC8guOlj1lTmE8p3bLFKmImf9RHXIOwq0HJwbhQ.webp",
+        name: "🧸너무너무 귀여운 강아지들 모임",
+        desc: "디진다",
+        time: "18:00"
+    },
+    {
+        uri: "https://cdn.sisamagazine.co.kr/news/photo/202210/472026_479184_4145.jpg",
+        name: "질레트메가커피",
+        desc: "감사합니다!!!",
+        time: "17:57"
+    },
+    {
+        uri: "https://t1.daumcdn.net/crms/symbol_img/symbol_%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1.png",
+        name: "짭카오",
+        desc: "안녕하세요. 짭카오입니다.",
+        time: "17:17"
+    },
+    {
+        uri: "https://i.namu.wiki/i/_KbyPuUXa5n8n9UGxXOCd-qXfPwLcmkiM-SlUqQFZbNMskw4cKi_8XZ5VSJaQdCqmWMo9tQX_YE8x1rYKUM2xUY1a5sz6k-lBtrWeM1Wg6APR6_unrOMyF-AulgJA2TBwpKj1Cf8q-RUgZOjmcHw0g.webp",
+        name: "주앙칸셀루",
+        desc: "이적시장 닫혔다",
+        time: "12:05"
+    },
+    {
+        uri: "https://www.naver.com/favicon.ico?1",
+        name: "네이바",
+        desc: "음~ 맛있따",
+        time: "13:00"
+    },
+    {
+        uri: "https://i.namu.wiki/i/9Qy_DJf097DJ35n1_G5ZaLDIhVRpj5NOc_OuIDX680Jpu7m0TZvCojOHtPdP5Gg5Zx6VtY3EBbbICknoyC3rKqYAIJJsfoJJPzEYIt1Qx2Qw17QbdU3bxtkK0ofj63MRCLdBuFJMOc2eHex1eIMlRg.webp",
+        name: "해리케인",
+        desc: "리버풀 직관 진짜 그립다 언제 또 가 진짜로 ..,,;;",
+        time: "12:14"
+    }
+]
