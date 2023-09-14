@@ -1,28 +1,21 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
-import Header from '../Header'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
+import React from 'react'
 import Margin from '../Margin'
 import Profile from '../Profile'
 import Division from '../Division'
 import FriendSection from '../FriendSection'
-import FriendList from '../FriendList'
 import { friendProfiles, myProfile } from '../data'
 import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const statusBarHeight = getStatusBarHeight(true)
-const bottomSpace = getBottomSpace()
 
-export default function FriendScreen() {
-  const [isOpened, setIsOpened] = useState(true)
-
+export default function FriendScreen({isOpened, setIsOpened}) {
   const onPressArrow = () => {
     setIsOpened(!isOpened)
   }
-
+  
   return (
-      <SafeAreaView style={styles.container} edges={['right', 'left']}>
-        <Header />
+      <View>
         <Margin height={10} />
         <Profile
           uri={myProfile.uri}
@@ -37,11 +30,8 @@ export default function FriendScreen() {
           onPressArrow={onPressArrow}
           isOpened={isOpened}
         />
-        <FriendList
-          data={friendProfiles}
-          isOpened={isOpened}
-        />
-      </SafeAreaView>
+        <Margin height={5} />
+      </View>
   )
 }
 
