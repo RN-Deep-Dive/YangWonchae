@@ -3,7 +3,7 @@ import { FlatList, Platform, StyleSheet, Text, View } from 'react-native';
 import Header from './src/Header';
 import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { myProfile, friendProfiles } from './src/data';
+import { myProfile, friendProfiles, rooms } from './src/data';
 import Margin from './src/Margin';
 import Division from './src/Division';
 import FriendSection from './src/FriendSection';
@@ -11,6 +11,8 @@ import FriendList from './src/FriendList';
 import { useState } from 'react';
 import TabBar from './src/TabBar';
 import Profile from './src/Profile';
+import FriendScreen from './src/screens/FriendScreen';
+import Room from './src/Room';
 
 const statusBarHeight = getStatusBarHeight(true)
 const bottomSpace = getBottomSpace()
@@ -19,64 +21,85 @@ const bottomSpace = getBottomSpace()
 // console.log(Platform.OS, 'bottomSpace', bottomSpace)
 
 export default function App() {
-  const [isOpened, setIsOpened] = useState(true)
   const [selectedTabIdx, setSelectedTabIdx] = useState(0)
+  const [isOpened, setIsOpened] = useState(true)
 
-  const onPressArrow = () => {
-    setIsOpened(!isOpened)
-  }
+  const titles = ['친구', '채팅', '이건뭐지?', '더보기']
 
-  const ItemSeparatorComponent = () => <Margin height={13} />
   const renderItem = ({ item }) => (
     <View>
+      {item.introduction &&
       <Profile
         uri={item.uri}
         name={item.name}
         introduction={item.introduction}
         isMe={false}
-      />
+      />}
+      {item.desc &&
+      <Room
+        uri={item.uri}
+        name={item.name}
+        desc={item.desc}
+        time={item.time}
+      />}
     </View>
   )
-
-  const ListHeaderComponent = () => (
-    <View style={{backgroundColor: 'white'}}>
-      <Header />
-      <Margin height={10} />
-      <Profile
-        uri={myProfile.uri}
-        name={myProfile.name}
-        introduction={myProfile.introduction}
-        isMe={true}
-      />
-      <Margin height={15} />
-      <Division />
-      <Margin height={12} />
-      <FriendSection
-        friendProfileLen={friendProfiles.length}
-        onPressArrow={onPressArrow}
-        isOpened={isOpened}
-      />
-      <Margin height={5} />
-    </View>
-  )
-
-  const ListFooterComponent = () => <Margin height={10} />
 
   return (
     <SafeAreaProvider>
       <StatusBar style="auto" />
       <SafeAreaView style={styles.container} edges={['right', 'left']}>
+        <Margin height={20} />
+        <Header
+          title={titles[selectedTabIdx]}
+        />
+        {selectedTabIdx === 0 && <>
+        <FriendScreen
+          isOpened={isOpened}
+          setIsOpened={setIsOpened}
+        />
         <FlatList
           data={isOpened ? friendProfiles : []}
-          contentContainerStyle={{paddingHorizontal: 10}}
-          keyExtractor={({ item, index }) => index}
-          stickyHeaderIndices={[0]}
-          ItemSeparatorComponent={ItemSeparatorComponent}
+          contentContainerStyle={{marginHorizontal: 10}}
+          keyExtractor={({ index }) => index}
+          ItemSeparatorComponent={<Margin height={13} />}
           renderItem={renderItem}
-          ListHeaderComponent={ListHeaderComponent}
-          ListFooterComponent={ListFooterComponent}
+          ListFooterComponent={<Margin height={5} />}
+          showsVerticalScrollIndicator={false}
+        /></>}
+        {selectedTabIdx === 1 && <>
+        <FlatList
+          data={rooms.sort((a, b) => b.time.localeCompare(a.time))}
+          contentContainerStyle={{marginHorizontal: 10}}
+          keyExtractor={({index}) => index}
+          ItemSeparatorComponent={<Margin height={13} />}
+          renderItem={renderItem}
+          ListFooterComponent={<Margin height={5} />}
           showsVerticalScrollIndicator={false}
         />
+        </>}
+        {selectedTabIdx === 2 && <>
+        <FlatList
+          data={[]}
+          contentContainerStyle={{marginHorizontal: 10}}
+          keyExtractor={({index}) => index}
+          ItemSeparatorComponent={<Margin height={13} />}
+          renderItem={renderItem}
+          ListFooterComponent={<Margin height={5} />}
+          showsVerticalScrollIndicator={false}
+        />
+        </>}
+        {selectedTabIdx === 3 && <>
+        <FlatList
+          data={[]}
+          contentContainerStyle={{marginHorizontal: 10}}
+          keyExtractor={({index}) => index}
+          ItemSeparatorComponent={<Margin height={13} />}
+          renderItem={renderRooms}
+          ListFooterComponent={<Margin height={5} />}
+          showsVerticalScrollIndicator={false}
+        />
+        </>}
         <TabBar
           selectedTabIdx={selectedTabIdx}
           setSelectedTabIdx={setSelectedTabIdx}
