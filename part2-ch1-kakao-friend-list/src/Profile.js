@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
 import Margin from './Margin'
 import styled from 'styled-components'
@@ -13,7 +13,7 @@ const ProfileImage = styled.Image`
 `
 const TextContainer = styled.View`
   justifyContent: center;
-  marginLeft: 10
+  marginLeft: 10px;
 `
 const NameText = styled.Text`
   fontWeight: ${props => (props.isMe ? 'bold' : 'normal')};

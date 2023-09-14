@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Fontisto, Ionicons } from '@expo/vector-icons';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
