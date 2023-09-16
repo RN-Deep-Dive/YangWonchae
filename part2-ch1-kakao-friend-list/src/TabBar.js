@@ -15,7 +15,7 @@ const TabButton = ({ isSelected, onPress, activeIconName, inactiveIconName, isIc
 }
 export default ({ selectedTabIdx, setSelectedTabIdx }) => {
     return (
-        <View style={{ width: '100%', borderTopWidth: 0.5, borderTopColor: 'grey', flexDirection: 'row', paddingBottom: bottomSpace }}>
+        <View style={{ width: '100%', borderTopWidth: 0.5, borderTopColor: 'grey', flexDirection: 'row', paddingBottom: bottomSpace, position: 'absolute', bottom: 0, backgroundColor: 'red'}}>
             <TabButton
                 isSelected={selectedTabIdx === 0}
                 onPress={() => setSelectedTabIdx(0)}

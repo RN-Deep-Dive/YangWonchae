@@ -53,21 +53,12 @@ export default function App() {
         <Header
           title={titles[selectedTabIdx]}
         />
-        {selectedTabIdx === 0 && <>
+        {selectedTabIdx === 0 &&
         <FriendScreen
           isOpened={isOpened}
           setIsOpened={setIsOpened}
-        />
-        <FlatList
-          data={isOpened ? friendProfiles : []}
-          contentContainerStyle={{marginHorizontal: 10}}
-          keyExtractor={({ index }) => index}
-          ItemSeparatorComponent={<Margin height={13} />}
-          renderItem={renderItem}
-          ListFooterComponent={<Margin height={5} />}
-          showsVerticalScrollIndicator={false}
-        /></>}
-        {selectedTabIdx === 1 && <>
+        />}
+        {selectedTabIdx === 1 &&
         <FlatList
           data={rooms.sort((a, b) => b.time.localeCompare(a.time))}
           contentContainerStyle={{marginHorizontal: 10}}
@@ -76,8 +67,7 @@ export default function App() {
           renderItem={renderItem}
           ListFooterComponent={<Margin height={5} />}
           showsVerticalScrollIndicator={false}
-        />
-        </>}
+        />}
         {selectedTabIdx === 2 && <>
         <FlatList
           data={[]}
