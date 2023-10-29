@@ -1,13 +1,14 @@
-import { Dimensions, Text, View } from 'react-native'
+import { Dimensions, Text, View, useWindowDimensions } from 'react-native'
 import React, { Component } from 'react'
-import {SafeAreaInsetsContext} from 'react-native-safe-area-context';
+import { SafeAreaInsetsContext, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Spacer from '../Spacer';
 import HeaderTitle from './HeaderTitle';
 import HeaderButton from './HeaderButton';
 import HeaderGroup from './HeaderGroup';
 
-const {width} = Dimensions.get('window');
+// const { width } = Dimensions.get('window');
 
+/*
 export default class Header extends Component {
   render() {
     return (
@@ -37,6 +38,35 @@ export default class Header extends Component {
       </SafeAreaInsetsContext.Consumer>
     )
   }
+}
+*/
+
+export default function Header(props) {
+  const insets = useSafeAreaInsets();
+  const { width } = useWindowDimensions();
+
+  return (
+    <View style={{ paddingTop: insets.top }}>
+      <View style={{
+        width: width,
+        height: 56,
+        flexDirection: 'row',
+        borderBottomColor: 'gray',
+        borderBottomWidth: 1,
+        alignItems: 'center'
+      }}>
+        <Spacer horizontal={true} space={12} />
+        <View style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}>
+          {props.children}
+        </View>
+        <Spacer horizontal={true} space={12} />
+      </View>
+    </View>
+  )
 }
 
 Header.Title = HeaderTitle;

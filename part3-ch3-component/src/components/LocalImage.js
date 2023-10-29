@@ -1,6 +1,7 @@
 import { Image as RNImage } from 'react-native'
 import React from 'react'
 
+/*
 export default class LocalImage extends React.Component {
   render() {
     return (
@@ -12,4 +13,16 @@ export default class LocalImage extends React.Component {
         ]} />
     )
   }
+}
+*/
+
+export default function LocalImage(props) {
+  return (
+    <RNImage
+      source={props.localAsset}
+      style={[
+        props.style,
+        {width: props.width, height: props.height}
+      ]} />
+  )
 }
